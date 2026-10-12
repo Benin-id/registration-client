@@ -199,7 +199,10 @@ public class DropDownFxControl extends FxControl {
 					Optional<GenericDto> result = getPossibleValues(langCode).stream()
 							.filter(b -> b.getCode().equals(selectedCode)).findFirst();
 					if (result.isPresent()) {
-						SimpleDto simpleDto = new SimpleDto(langCode, result.get().getName());
+                        String value = uiFieldDTO.isCodeRequired()
+                                ? selectedCode
+                                : result.get().getName();
+                        SimpleDto simpleDto = new SimpleDto(langCode,value);
 						values.add(simpleDto);
 					}
 				}
@@ -210,7 +213,11 @@ public class DropDownFxControl extends FxControl {
 				Optional<GenericDto> result = getPossibleValues(getRegistrationDTo().getSelectedLanguagesByApplicant().get(0)).stream()
 						.filter(b -> b.getCode().equals(selectedCode)).findFirst();
 				if (result.isPresent()) {
-					getRegistrationDTo().addDemographicField(uiFieldDTO.getId(), result.get().getName());
+                    String value = uiFieldDTO.isCodeRequired()
+                            ? selectedCode
+                            : result.get().getName();
+                    System.out.println(" from Value:"+ result.get().getName());
+                    getRegistrationDTo().addDemographicField(uiFieldDTO.getId(),value);
 					getRegistrationDTo().SELECTED_CODES.put(uiFieldDTO.getId()+"Code", selectedCode);
 				}
 				break;

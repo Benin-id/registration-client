@@ -64,6 +64,8 @@ public class UiFieldDTO {
 	@JsonProperty("exceptionPhotoRequired")
 	private boolean isExceptionPhotoRequired;
 	private boolean handle;
+    @JsonProperty("isCodeRequired")
+    private boolean isCodeRequired;
 
 
 	/**

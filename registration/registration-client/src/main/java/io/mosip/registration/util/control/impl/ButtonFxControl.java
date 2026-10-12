@@ -103,7 +103,6 @@ public class ButtonFxControl extends FxControl {
 		}
 
 		String code = selectedButton.getId().replaceAll(uiFieldDTO.getId(), "");
-
 		switch (this.uiFieldDTO.getType()) {
 		case RegistrationConstants.SIMPLE_TYPE:
 			List<SimpleDto> values = new ArrayList<SimpleDto>();
@@ -112,7 +111,10 @@ public class ButtonFxControl extends FxControl {
 				Optional<GenericDto> result = masterSyncService.getFieldValues(uiFieldDTO.getSubType(), langCode, false).stream()
 						.filter(b -> b.getCode().equalsIgnoreCase(code)).findFirst();
 				if (result.isPresent()) {
-					values.add(new SimpleDto(langCode, result.get().getName()));
+                    String value = uiFieldDTO.isCodeRequired()
+                            ? code
+                            : result.get().getName();
+                    values.add(new SimpleDto(langCode, value));
 					toolTipText.add(result.get().getName());
 				}
 			}
