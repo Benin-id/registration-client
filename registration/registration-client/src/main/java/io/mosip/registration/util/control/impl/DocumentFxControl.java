@@ -361,11 +361,14 @@ public class DocumentFxControl extends FxControl {
 					return;
 				}
 
-				String configuredDocType = ApplicationContext.getStringValueFromApplicationMap(RegistrationConstants.DOC_TYPE);
-				byte[] byteArray =  ("pdf".equalsIgnoreCase(configuredDocType)) ?
+				//String configuredDocType = ApplicationContext.getStringValueFromApplicationMap(RegistrationConstants.DOC_TYPE);
+                String configuredDocType = "jpg";
+                byte[] byteArray = DocScannerUtil.asImage(bufferedImages);
+
+                /*byte[] byteArray =  ("pdf".equalsIgnoreCase(configuredDocType)) ?
 						DocScannerUtil.asPDF(bufferedImages,
 								ApplicationContext.getFloatValueFromApplicationMap(RegistrationConstants.JPG_COMPRESSION_QUALITY)) :
-						DocScannerUtil.asImage(bufferedImages);
+						DocScannerUtil.asImage(bufferedImages);*/
 
 				if (byteArray == null) {
 					documentScanController.generateAlert(RegistrationConstants.ERROR,
@@ -386,11 +389,11 @@ public class DocumentFxControl extends FxControl {
 				DocumentDto documentDto = getRegistrationDTo().getDocuments().get(uiFieldDTO.getId());
 				if (documentDto == null) {
 					documentDto = new DocumentDto();
-					documentDto.setFormat(configuredDocType);
+				//	documentDto.setFormat(configuredDocType);
 					documentDto.setCategory(uiFieldDTO.getSubType());
 					documentDto.setOwner(RegistrationConstants.APPLICANT);
 				}
-
+                documentDto.setFormat(configuredDocType);
 				documentDto.setType(comboBox.getValue().getCode());
 				documentDto.setValue(uiFieldDTO.getSubType().concat(RegistrationConstants.UNDER_SCORE)
 						.concat(comboBox.getValue().getCode()));
