@@ -102,6 +102,7 @@
       </children>
     </AnchorPane>
   </right>
+    <!-- my changes-->
   <top>
     <HBox id="header-section" prefHeight="54.0" prefWidth="523.0" alignment="CENTER_RIGHT">
       <children>
