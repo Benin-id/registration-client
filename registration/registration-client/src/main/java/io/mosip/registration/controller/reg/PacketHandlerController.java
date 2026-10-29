@@ -808,6 +808,7 @@ public class PacketHandlerController extends BaseController implements Initializ
 					}
 					ProcessSpecDto processSpecDto = identitySchemaDao.getProcessSpec(processSpec.getId(), version);
 					GridPane gridPane = buildRegistrationProcessPane(processSpecDto);
+					gridPane.setDisable(flowType != FlowType.NEW);
 					registrationGridPane.addRow(i.getAndIncrement(), gridPane);
 				} catch (RegBaseCheckedException e) {
 					LOGGER.error("Failed to build process pane {}", processSpec, e);
